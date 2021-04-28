@@ -1,4 +1,4 @@
-package Personen;
+package personen;
 
 public class Besitzer  extends Person{
 

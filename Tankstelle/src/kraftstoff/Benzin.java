@@ -1,4 +1,4 @@
-package Kraftstoff;
+package kraftstoff;
 public class Benzin extends Kraftstoff{
 
 	public Benzin(String name, int preisProLiter, int verfuegbar, int verkauft) {

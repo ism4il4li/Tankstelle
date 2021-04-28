@@ -1,4 +1,4 @@
-package Kraftstoff;
+package kraftstoff;
 
 public class Kraftstoff {
 	

@@ -1,4 +1,4 @@
-package Personen;
+package personen;
 
 public class Person {
 	private String vorname,nachname,strasse,hausnummer,plz,ort;

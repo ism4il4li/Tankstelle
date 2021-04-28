@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -28,6 +29,11 @@ import javax.swing.JScrollPane;
 public class Kasse_Bildschirm extends JFrame {
 
 	private JPanel contentPane;
+	private String proName = null;// Produkt Name für Kasse Bildschirn
+	private float ProPreis=0;//
+	private int proMenge=0;//
+	private int mwst=0;//
+	//ArrayList<String> insertKasse = new ArrayList<String>();
 
 	/**
 	 * Launch the application.
@@ -81,6 +87,11 @@ public class Kasse_Bildschirm extends JFrame {
 		panel_Tabakwaren.add(btnTabak2);
 		
 		JButton btnTabak1 = new JButton("tabak1");
+		btnTabak1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//insertKasse.add(btnTabak1.getText());
+			}
+		});
 		btnTabak1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnTabak1.setBounds(182, 126, 89, 23);
 		panel_Tabakwaren.add(btnTabak1);
@@ -91,6 +102,10 @@ public class Kasse_Bildschirm extends JFrame {
 		panel_Tabakwaren.add(btnTabak4);
 		
 		JButton btnTabak3 = new JButton("tabak3");
+		btnTabak3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTabak3.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnTabak3.setBounds(182, 45, 89, 23);
 		panel_Tabakwaren.add(btnTabak3);
@@ -522,6 +537,43 @@ public class Kasse_Bildschirm extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 	}
+
+	//-----------------------------------------------------------------------------------------------------------------
+	public void updateTable() {
+	String sql = "select ProName,ProPreis from Produkte";
+	try {
+		//String query="select ProName from Produkte where ProName=? ";
+		PreparedStatement pst = connection.prepareStatement(sql);
+		//pst.setString(1, btnZeitung1.getText());
+		
+		ResultSet rs = pst.executeQuery();
+		table.setModel(DbUtils.resultSetToTableModel(rs));
+		int count = 0;
+		while(rs.next()) {
+			count++;
+			
+		}
+		if(count==1) {
+			JOptionPane.showMessageDialog(null, "login war erfolgreich");
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			
+			
+		}else if(count >1) {
+			JOptionPane.showMessageDialog(null, "doppelt");
+		}else {
+			JOptionPane.showMessageDialog(null, "Benutzername oder Passwort falsch");
+		}
+		rs.close();
+		pst.close();
+		
+	}catch(Exception ex) {
+		//System.out.println(ex);
+		JOptionPane.showMessageDialog(null, "ein fehler ist aufgetreten");
+	}
+	}
+	//-----------------------------------------------------------
+	
+	
 	//----------------------------------------------------------------------------------------------------------------
 	public void insertKasseTable() {
 	String sql = "INSERT INTO Kasse (Name,Preis ,Menge,Mwst) VALUES(?,?,?,?);";
@@ -559,40 +611,7 @@ public class Kasse_Bildschirm extends JFrame {
 		//System.out.println(ex);
 		JOptionPane.showMessageDialog(null, "ein fehler ist aufgetreten");
 	}
-	//-----------------------------------------------------------
-	}
-	//-----------------------------------------------------------------------------------------------------------------
-	public void updateTable() {
-	String sql = "select ProName,ProPreis from Produkte";
-	try {
-		//String query="select ProName from Produkte where ProName=? ";
-		PreparedStatement pst = connection.prepareStatement(sql);
-		//pst.setString(1, btnZeitung1.getText());
-		
-		ResultSet rs = pst.executeQuery();
-		table.setModel(DbUtils.resultSetToTableModel(rs));
-		int count = 0;
-		while(rs.next()) {
-			count++;
-			
-		}
-		if(count==1) {
-			JOptionPane.showMessageDialog(null, "login war erfolgreich");
-			table.setModel(DbUtils.resultSetToTableModel(rs));
-			
-			
-		}else if(count >1) {
-			JOptionPane.showMessageDialog(null, "doppelt");
-		}else {
-			JOptionPane.showMessageDialog(null, "Benutzername oder Passwort falsch");
-		}
-		rs.close();
-		pst.close();
-		
-	}catch(Exception ex) {
-		//System.out.println(ex);
-		JOptionPane.showMessageDialog(null, "ein fehler ist aufgetreten");
+	
 	}
 	//-----------------------------------------------------------
-	}
 }

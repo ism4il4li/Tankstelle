@@ -18,6 +18,11 @@ import javax.swing.JOptionPane;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -947,7 +952,48 @@ public class Kasse_Bildschirm extends JFrame {
 		JButton btnBezahlen = new JButton("Bezahlen");
 		btnBezahlen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(warenkorb.getLast().getName()+" | "+ warenkorb.getLast().getMenge()+" | "+ warenkorb.getLast().getPreis());
+				//System.out.println(warenkorb.getLast().getName()+" | "+ warenkorb.getLast().getMenge()+" | "+ warenkorb.getLast().getPreis());
+				String filePath ="Rechnung.txt";
+				File file = new File(filePath);
+				try {
+					FileWriter fileWriter = new FileWriter(file);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					//BufferedReader bufferedReader = new BufferedReader(new InputstreamReader(System.in));
+					bufferedWriter.newLine();
+					String myString1 ="Willkommen zu eurer Tankstelle";
+					bufferedWriter.write(myString1);
+					bufferedWriter.newLine();bufferedWriter.newLine();
+					
+					
+					String myString2 ="   Artikel     PreisProArtikel        Menge             Mwst";
+					
+					bufferedWriter.write(myString2);
+					
+					bufferedWriter.write("\n___________________________________________________________________\n");
+					for(int i=0;i<table.getRowCount();i++) {
+						for(int j=0; j<table.getColumnCount();j++) {
+							
+							bufferedWriter.write("  "+table.getValueAt(i, j).toString()+"    ");
+							for(int y=0;table.getValueAt(i, j).toString().length()+y<13;y++){
+							
+									bufferedWriter.write(" ");
+									
+								}
+						}
+						bufferedWriter.write("\n___________________________________________________________________\n");
+						bufferedWriter.newLine();
+						
+					}
+					bufferedWriter.write("Summe: "+String.format("%.02f", summe)+" €");
+					bufferedWriter.newLine();
+					bufferedWriter.write("Gute fahrt wünschen wir euch");
+					bufferedWriter.close();
+					fileWriter.close();
+					
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnBezahlen.setFont(new Font("Tahoma", Font.PLAIN, 17));

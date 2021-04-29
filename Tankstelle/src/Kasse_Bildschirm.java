@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -44,66 +45,70 @@ public class Kasse_Bildschirm extends JFrame {
 	// Produkte
 	//---------------------
 	//-----1
-	Produkt tabak1;
-	private int tabak1Tokasse ;
-	private int tabak2Tokasse ;
-	private int tabak3Tokasse ;
-	private int tabak4Tokasse ;
-	private int zigaretten1Tokasse ;
-	private int zigaretten2Tokasse ;
-	private int filterTokasse ;
-	private int blaetchenTokasse ;
-	private int feuerzeugTokasse ;
-	//-----2
-	private int zeitung1Tokasse ;
-	private int zeitung2Tokasse ;
-	private int zeitung3Tokasse ;
-	private int zeitung4Tokasse ;
-	private int zeitung5Tokasse ;
-	private int zeitung6Tokasse ;
-	private int zeitschrift1Tokasse ;
-	private int zeitschrift2Tokasse ;
-	private int zeitschrift3Tokasse ;
-	private int zeitschrift4Tokasse ;
-	private int zeitschrift5Tokasse ;
-	private int zeitschrift6Tokasse ;
-	//-----3
-	private int lkwDieselTokasse ;
-	private int dieselTokasse ;
-	private int superE10Tokasse ;
-	private int super95Tokasse ;
-	private int superPlusTokasse ;
-	private int adBlueTokasse ;
-	private int autogasTokasse ;
-	private int erdgasTokasse ;
-	//-----4
-	private int broetchenTokasse ;
-	private int hamburgerTokasse ;
-	private int nutellaTokasse ;
-	private int marmeladeTokasse ;
-	private int milchTokasse ;
-	//-----5
-	private int anbieter1Tokasse ;
-	private int anbieter2Tokasse ;
-	private int anbieter3Tokasse ;
-	private int anbieter4Tokasse ;
-	private int anbieter5Tokasse ;
-	//-----6
-	private int colaTokasse ;
-	private int wasserTokasse ;
-	private int saftTokasse ;
-	private int bierTokasse ;
-	private int kaffeeTokasse ;
-	private int iceKaffeeTokasse ;
-	//-----7
-	private int zahnbuersteTokasse ;
-	private int shampooTokasse ;
-	private int duschgelTokasse ;
-	private int klopapierTokasse ;
-	private int bindenTokasse ;
-	private int tamponTokasse ;
-	private int motoroelTokasse ;
-	//---------------------
+//	Produkt tabak1;
+	
+	LinkedList<Produkt> warenkorb = new LinkedList<>();
+	
+	
+//	private int tabak1Tokasse ;
+//	private int tabak2Tokasse ;
+//	private int tabak3Tokasse ;
+//	private int tabak4Tokasse ;
+//	private int zigaretten1Tokasse ;
+//	private int zigaretten2Tokasse ;
+//	private int filterTokasse ;
+//	private int blaetchenTokasse ;
+//	private int feuerzeugTokasse ;
+//	//-----2
+//	private int zeitung1Tokasse ;
+//	private int zeitung2Tokasse ;
+//	private int zeitung3Tokasse ;
+//	private int zeitung4Tokasse ;
+//	private int zeitung5Tokasse ;
+//	private int zeitung6Tokasse ;
+//	private int zeitschrift1Tokasse ;
+//	private int zeitschrift2Tokasse ;
+//	private int zeitschrift3Tokasse ;
+//	private int zeitschrift4Tokasse ;
+//	private int zeitschrift5Tokasse ;
+//	private int zeitschrift6Tokasse ;
+//	//-----3
+//	private int lkwDieselTokasse ;
+//	private int dieselTokasse ;
+//	private int superE10Tokasse ;
+//	private int super95Tokasse ;
+//	private int superPlusTokasse ;
+//	private int adBlueTokasse ;
+//	private int autogasTokasse ;
+//	private int erdgasTokasse ;
+//	//-----4
+//	private int broetchenTokasse ;
+//	private int hamburgerTokasse ;
+//	private int nutellaTokasse ;
+//	private int marmeladeTokasse ;
+//	private int milchTokasse ;
+//	//-----5
+//	private int anbieter1Tokasse ;
+//	private int anbieter2Tokasse ;
+//	private int anbieter3Tokasse ;
+//	private int anbieter4Tokasse ;
+//	private int anbieter5Tokasse ;
+//	//-----6
+//	private int colaTokasse ;
+//	private int wasserTokasse ;
+//	private int saftTokasse ;
+//	private int bierTokasse ;
+//	private int kaffeeTokasse ;
+//	private int iceKaffeeTokasse ;
+//	//-----7
+//	private int zahnbuersteTokasse ;
+//	private int shampooTokasse ;
+//	private int duschgelTokasse ;
+//	private int klopapierTokasse ;
+//	private int bindenTokasse ;
+//	private int tamponTokasse ;
+//	private int motoroelTokasse ;
+//	//---------------------
 
 	
 
@@ -123,6 +128,20 @@ public class Kasse_Bildschirm extends JFrame {
 			}
 
 		});
+	}
+	
+	
+	public int countShoppingCart( String produktName ) {
+		int cnt = 0;
+		
+		for( int i = 0; i < this.warenkorb.size(); i++) {
+			Produkt produkt = this.warenkorb.get(i);
+			if(produkt.getName().equalsIgnoreCase(produktName)) {
+				cnt++;
+			}	
+		};		
+		return cnt;
+	
 	}
 
 	/**
@@ -165,9 +184,9 @@ public class Kasse_Bildschirm extends JFrame {
 		btnTabak2.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				tabak2Tokasse++;
-				Produkt tabak2 = new Produkt("tabak2",5.5f,50,19);
-				addRow(tabak2.getName(),tabak2.getPreis(),tabak2Tokasse,tabak2.getMwst());
+//				tabak2Tokasse++;
+				Produkt produkt = new Produkt("tabak2",5.5f,50,19);
+				addRow(produkt.getName(),produkt.getPreis(),countShoppingCart(produkt.getName()),produkt.getMwst());
 				}
 		});
 		btnTabak2.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -181,18 +200,21 @@ public class Kasse_Bildschirm extends JFrame {
 		btnTabak1.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				tabak1Tokasse++;
-				tabak1= new Produkt("tabak1",4.5f,50,19);
+//				tabak1Tokasse++;
+				Produkt produkt = new Produkt("tabak1",4.5f,50,19);
+				warenkorb.add( produkt );
+				int countProdukt = countShoppingCart(produkt.getName());
 				
 				///----------------------------------------------------------------------
 		        //remove rows with instances of "5/13/2013"
 				//System.out.println("tabelle:" + table.getRowCount() );
 		        for (int i = 0; i < table.getRowCount(); i++) {
-		            if (table.getValueAt(i, 0).equals("tabak1")) {
+		        	
+		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
 		            	//((DefaultTableModel)table.getModel()).removeRow(i);
 		            	//table.remove(i);
 		            	//table.removeRow(i);
-		            	table.setValueAt(tabak1Tokasse, i, 2);
+		            	table.setValueAt(countProdukt, i, 2);
 		            	
 		            	//String Table_click = (table.getModel().getValueAt(i, 0).toString());
 		            	
@@ -206,13 +228,12 @@ public class Kasse_Bildschirm extends JFrame {
 		            	//System.out.println((String)table.getValueAt(i, 0));
 		            	//table.getSelectedRow();
 		            	//table.remove(i);
-		            	break;
-		            }else {
-		            	
-		            	addRow(tabak1.getName(),tabak1.getPreis(),tabak1Tokasse,tabak1.getMwst());
-		            	
+		            	return;
 		            }
+		            	   
 		        }//end of for block
+
+		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
 				///-----------------------------------------------------------------------
 
 				}
@@ -222,25 +243,26 @@ public class Kasse_Bildschirm extends JFrame {
 		panel_Tabakwaren.add(btnTabak1);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak4 = new JButton("tabak4");
-		btnTabak4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabak4Tokasse++;
-				Produkt tabak4 = new Produkt("tabak4",6f,50,19);
-				addRow(tabak4.getName(),tabak4.getPreis(),tabak4Tokasse,tabak4.getMwst());
-			}
-		});
+		
+//		btnTabak4.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				tabak4Tokasse++;
+//				Produkt tabak4 = new Produkt("tabak4",6f,50,19);
+//				addRow(tabak4.getName(),tabak4.getPreis(),tabak4Tokasse,tabak4.getMwst());
+//			}
+//		});
 		btnTabak4.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnTabak4.setBounds(182, 11, 89, 23);
 		panel_Tabakwaren.add(btnTabak4);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak3 = new JButton("tabak3");
-		btnTabak3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabak3Tokasse++;
-				Produkt tabak3 = new Produkt("tabak3",5,50,19);
-				addRow(tabak3.getName(),tabak3.getPreis(),tabak3Tokasse,tabak3.getMwst());
-			}
-		});
+//		btnTabak3.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				tabak3Tokasse++;
+//				Produkt tabak3 = new Produkt("tabak3",5,50,19);
+//				addRow(tabak3.getName(),tabak3.getPreis(),tabak3Tokasse,tabak3.getMwst());
+//			}
+//		});
 		btnTabak3.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnTabak3.setBounds(182, 45, 89, 23);
 		panel_Tabakwaren.add(btnTabak3);

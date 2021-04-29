@@ -44,68 +44,7 @@ public class Kasse_Bildschirm extends JFrame {
 	LinkedList<Produkt> warenkorb = new LinkedList<>();
 	private float summe=0.0f;
 	
-	
-//	private int tabak1Tokasse ;
-//	private int tabak2Tokasse ;
-//	private int tabak3Tokasse ;
-//	private int tabak4Tokasse ;
-//	private int zigaretten1Tokasse ;
-//	private int zigaretten2Tokasse ;
-//	private int filterTokasse ;
-//	private int blaetchenTokasse ;
-//	private int feuerzeugTokasse ;
-//	//-----2
-//	private int zeitung1Tokasse ;
-//	private int zeitung2Tokasse ;
-//	private int zeitung3Tokasse ;
-//	private int zeitung4Tokasse ;
-//	private int zeitung5Tokasse ;
-//	private int zeitung6Tokasse ;
-//	private int zeitschrift1Tokasse ;
-//	private int zeitschrift2Tokasse ;
-//	private int zeitschrift3Tokasse ;
-//	private int zeitschrift4Tokasse ;
-//	private int zeitschrift5Tokasse ;
-//	private int zeitschrift6Tokasse ;
-//	//-----3
-//	private int lkwDieselTokasse ;
-//	private int dieselTokasse ;
-//	private int superE10Tokasse ;
-//	private int super95Tokasse ;
-//	private int superPlusTokasse ;
-//	private int adBlueTokasse ;
-//	private int autogasTokasse ;
-//	private int erdgasTokasse ;
-//	//-----4
-//	private int broetchenTokasse ;
-//	private int hamburgerTokasse ;
-//	private int nutellaTokasse ;
-//	private int marmeladeTokasse ;
-//	private int milchTokasse ;
-//	//-----5
-//	private int anbieter1Tokasse ;
-//	private int anbieter2Tokasse ;
-//	private int anbieter3Tokasse ;
-//	private int anbieter4Tokasse ;
-//	private int anbieter5Tokasse ;
-//	//-----6
-//	private int colaTokasse ;
-//	private int wasserTokasse ;
-//	private int saftTokasse ;
-//	private int bierTokasse ;
-//	private int kaffeeTokasse ;
-//	private int iceKaffeeTokasse ;
-//	//-----7
-//	private int zahnbuersteTokasse ;
-//	private int shampooTokasse ;
-//	private int duschgelTokasse ;
-//	private int klopapierTokasse ;
-//	private int bindenTokasse ;
-//	private int tamponTokasse ;
-//	private int motoroelTokasse ;
-//	//---------------------
 
-	
 
 	/**
 	 * Launch the application.
@@ -144,10 +83,11 @@ public class Kasse_Bildschirm extends JFrame {
 	 */
 	Connection connection = null;
 	private JTextField textSumme;
-	
-	
+	DecimalFormat df = new DecimalFormat("#.##");
+	Produkt produkt;
 	public Kasse_Bildschirm() {
-		DecimalFormat df = new DecimalFormat("#.##");
+		
+		
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane();
 		connection = SQLiteConnection.dbConnector();
@@ -184,29 +124,9 @@ public class Kasse_Bildschirm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 					
 				///-------------------------------------------------------
-				Produkt produkt = new Produkt("tabak2",5.5f,50,19);
-				
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
+				produkt = new Produkt("tabak2",5.5f,50,19);
+				addToWarenkorb();
 	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-			        	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-		            		
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
 				///-----------------------------------------------------
 				
 				
@@ -223,27 +143,8 @@ public class Kasse_Bildschirm extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				///----------------------------------------------------------------------
-				Produkt produkt = new Produkt("tabak1",4.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				 for (int i = 0; i < table.getRowCount(); i++) {
-
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-			        	summe +=produkt.getPreis();
-			        	textSumme.setText(String.valueOf(df.format(summe)));
-
-			        	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
-		        
+				produkt = new Produkt("tabak1",4.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------------------------
 
 				}
@@ -256,28 +157,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnTabak4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("tabak4",6f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("tabak4",6f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -290,28 +171,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnTabak3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("tabak3",5,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("tabak3",5,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -325,28 +186,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnBlaettchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Blätchen",0.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Blätchen",0.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -360,28 +201,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("filter",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("filter",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -395,28 +216,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZigaretten1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zigaretten1",5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zigaretten1",5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -430,28 +231,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZigaretten2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zigaretten2",6f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zigaretten2",6f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -465,28 +246,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnFeuerzeug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Feuerzeug",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Feuerzeug",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -507,28 +268,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitung1",2.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitung1",2.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -542,28 +283,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zeitung2",3.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zeitung2",3.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -577,28 +298,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zeitung3",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zeitung3",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -612,28 +313,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift1",3f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift1",3f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -647,28 +328,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zeitung4",4f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zeitung4",4f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -682,28 +343,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zeitung5",5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zeitung5",5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -717,28 +358,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitung6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("zeitung6",4.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("zeitung6",4.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -752,28 +373,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift2",4f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift2",4f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -787,28 +388,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift3",5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift3",5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -822,28 +403,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift4",4.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift4",4.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -857,28 +418,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift5",3.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift5",3.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -892,28 +433,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZeitschrift6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zeitschrift6",4.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zeitschrift6",4.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -934,28 +455,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHandy_Anbieter1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Anbieter1",20f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Anbieter1",20f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -969,28 +470,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHandy_Anbieter2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Anbieter2",25f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Anbieter2",25f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1004,28 +485,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHandy_Anbieter3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Anbieter3",15f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Anbieter3",15f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1039,28 +500,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHandy_Anbieter4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Anbieter4",10f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Anbieter4",10f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1074,28 +515,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHandy_Anbieter5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Anbieter5",30f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Anbieter5",30f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1116,28 +537,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnCola.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Cola",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Cola",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1151,28 +552,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnWasser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Wasser",1.2f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Wasser",1.2f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1186,28 +567,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnSaft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Saft",1.9f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Saft",1.9f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1221,28 +582,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnBier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Bier",2.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Bier",2.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1256,28 +597,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnKaffee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Kaffee",2f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Kaffee",2f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1291,28 +612,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnIce_Kaffee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Ice-Kaffee",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Ice-Kaffee",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1333,28 +634,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnBroetchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Brötchen",2f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Brötchen",2f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1368,28 +649,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnHamburger.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Hamburger",3.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Hamburger",3.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1403,28 +664,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnNutella.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("nutella",3.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("nutella",3.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1438,28 +679,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnMarmelade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Marmelade",2.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Marmelade",2.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1473,28 +694,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnMilch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Milch",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Milch",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1515,28 +716,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnShampoo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Shampoo",2.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Shampoo",2.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1550,28 +731,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnDuschgel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Duschgel",2.6f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Duschgel",2.6f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1585,28 +746,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnKlopapier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Klopapiere",3.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Klopapiere",3.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1620,28 +761,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnBinden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Binden",4f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				 produkt = new Produkt("Binden",4f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1655,28 +776,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnTampon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Tampon",3f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Tampon",3f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1690,28 +791,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnZahnbuerste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Zahnbürste",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Zahnbürste",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1725,28 +806,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnMotoroel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Motoröl",18f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Motoröl",18f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1767,28 +828,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnLKW_Diesel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("LKW Diesel",1.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("LKW Diesel",1.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1802,28 +843,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnDiesel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Diesel",1.6f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Diesel",1.6f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1837,28 +858,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnSuperE10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Super E10",1.55f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Super E10",1.55f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1872,28 +873,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnSuper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Super 95",1.6f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Super 95",1.6f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1907,28 +888,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnSuper_Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Super Plus",1.7f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Super Plus",1.7f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1942,28 +903,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnAdBlue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("AdBlue",0.5f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("AdBlue",0.5f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -1977,28 +918,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnAuto_Gas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Auto Gas",1.1f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Auto Gas",1.1f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -2012,28 +933,8 @@ public class Kasse_Bildschirm extends JFrame {
 		btnErdgas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
-				Produkt produkt = new Produkt("Erdgas",1.2f,50,19);
-				warenkorb.add( produkt );
-				int countProdukt = countShoppingCart(produkt.getName());
-				
-				
-	
-		        for (int i = 0; i < table.getRowCount(); i++) {
-		        	
-		            if (table.getValueAt(i, 0).equals(produkt.getName())) {
-		            	summe +=produkt.getPreis();
-		            	textSumme.setText(String.valueOf(df.format(summe)));
-
-		            	table.setValueAt(countProdukt, i, 2);
-
-		            	return;
-		            }
-		            	   
-		        }
-
-		        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
-		        summe +=produkt.getPreis();
-		        textSumme.setText(String.valueOf(df.format(summe)));
+				produkt = new Produkt("Erdgas",1.2f,50,19);
+				addToWarenkorb();
 				///-----------------------------------------------------
 			}
 		});
@@ -2044,6 +945,11 @@ public class Kasse_Bildschirm extends JFrame {
 		panel_Treibstoff.add(btnErdgas);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnBezahlen = new JButton("Bezahlen");
+		btnBezahlen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(warenkorb.getLast().getName()+" | "+ warenkorb.getLast().getMenge()+" | "+ warenkorb.getLast().getPreis());
+			}
+		});
 		btnBezahlen.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnBezahlen.setBounds(461, 376, 112, 33);
 		panel.add(btnBezahlen);
@@ -2227,14 +1133,14 @@ public class Kasse_Bildschirm extends JFrame {
 	
 	//----------------------------------------------------------------------------------------------------------------
 	public void insertKasseTable() {
-	
-		String sql = "INSERT INTO Kasse (Name,Preis,Mwst) VALUES(?,?,?);";
+		int mwst = 19;
+		String sql = "INSERT INTO Kasse (Name,Preis,Menge,Mwst) VALUES(?,?,?,?);";
 	try {
 		
 		PreparedStatement pst = connection.prepareStatement(sql);
 		//pst.setString(1, proName);
 		//pst.setString(1, proPreis);
-		//pst.setString(1, mwst);
+		pst.setString(4, String.valueOf(mwst));
 		pst.executeUpdate();
 
 		pst.close();
@@ -2267,6 +1173,33 @@ public class Kasse_Bildschirm extends JFrame {
 		dm.addRow(arw);
 		
 	}
+	//--------------------------------------------------
+	private void addToWarenkorb() {
+		///-------------------------------------------------------
+		
+		
+		warenkorb.add( produkt );
+		int countProdukt = countShoppingCart(produkt.getName());
+		
+		
 
+        for (int i = 0; i < table.getRowCount(); i++) {
+        	
+            if (table.getValueAt(i, 0).equals(produkt.getName())) {
+            	summe +=produkt.getPreis();
+	        	textSumme.setText(String.valueOf(df.format(summe)));
+
+            	table.setValueAt(countProdukt, i, 2);
+            		
+            	return;
+            }
+            	   
+        }
+
+        addRow(produkt.getName(),produkt.getPreis(),countProdukt,produkt.getMwst());
+        summe +=produkt.getPreis();
+        textSumme.setText(String.valueOf(df.format(summe)));
+		///-----------------------------------------------------
+	}
 	//----------------------------------------------------
 }

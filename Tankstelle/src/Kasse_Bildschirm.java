@@ -1276,4 +1276,7 @@ public class Kasse_Bildschirm extends JFrame {
 		///-----------------------------------------------------
 	}
 	//----------------------------------------------------
+	private void nix() {
+		System.out.println("test für gitHub");
+	}
 }

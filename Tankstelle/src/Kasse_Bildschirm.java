@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,7 +40,7 @@ public class Kasse_Bildschirm extends JFrame {
 
 	private JPanel contentPane;
 
-	static DefaultTableModel dm;
+	DefaultTableModel dm;
 	String[] colomnName = {"Artikel", "Preis", "Menge", "Mwst"};
 	ArrayList<Object[][]> data ;
 	private  JTable table;
@@ -956,6 +957,32 @@ public class Kasse_Bildschirm extends JFrame {
 				String filePath ="Rechnung.txt";
 				File file = new File(filePath);
 				try {
+					dm = (DefaultTableModel) table.getModel();
+					String artikel,preis,menge,mwst;
+					if(dm.getRowCount()==0) {
+						JOptionPane.showMessageDialog(null,"Warenkorb ist leer!");
+					}else {
+						for(int i=0;i<dm.getRowCount();i++) {
+							artikel=dm.getValueAt(i, 0).toString();
+							preis= dm.getValueAt(i, 1).toString();
+							menge= dm.getValueAt(i, 2).toString();
+							mwst= dm.getValueAt(i, 3).toString();
+							String query="insert into Kasse(Name,Preis,Menge,Mwst) values(?,?,?,?)";
+							try {
+								PreparedStatement pst = connection.prepareStatement(query);
+								pst.setString(1, artikel);
+								pst.setString(2, preis);
+								pst.setString(3, menge);
+								pst.setString(4, mwst);
+								pst.execute();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
+						}
+					}
+					///----------------------------->>>>>>>>>>>>>>>>>>>TextDatei schreiben
 					FileWriter fileWriter = new FileWriter(file);
 					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 					//BufferedReader bufferedReader = new BufferedReader(new InputstreamReader(System.in));
@@ -989,6 +1016,7 @@ public class Kasse_Bildschirm extends JFrame {
 					bufferedWriter.write("Gute fahrt wünschen wir euch");
 					bufferedWriter.close();
 					fileWriter.close();
+					JOptionPane.showMessageDialog(null, "erfolgreich gesendet");
 					
 				} catch (IOException e1) {
 					

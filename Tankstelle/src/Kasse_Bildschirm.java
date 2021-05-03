@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Database.KraftstoffCRUD;
+import Database.SQLiteConnection;
+import Kraftstoff.Zapfsaule1;
 import Produkte.Produkt;
 
 
@@ -35,9 +38,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 public class Kasse_Bildschirm extends JFrame {
-
+	
 	private JPanel contentPane;
 
 	DefaultTableModel dm;
@@ -45,7 +49,9 @@ public class Kasse_Bildschirm extends JFrame {
 	ArrayList<Object[][]> data ;
 	private  JTable table;
 	
-
+	KraftstoffCRUD crudKraftstoff;
+	Zapfsaule1 zapfsaule1;
+	
 	
 	LinkedList<Produkt> warenkorb = new LinkedList<>();
 	private float summe=0.0f;
@@ -93,25 +99,26 @@ public class Kasse_Bildschirm extends JFrame {
 	Produkt produkt;
 	public Kasse_Bildschirm() {
 		
+		//crudKraftstoff = new KraftstoffCRUD();
+		zapfsaule1 = new Zapfsaule1();
 		
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane();
 		connection = SQLiteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 690, 480);
+		setBounds(100, 100, 689, 543);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 664, 425);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(293, 11, 361, 343);
+		layeredPane.setBounds(330, 95, 311, 260);
 		panel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -119,11 +126,11 @@ public class Kasse_Bildschirm extends JFrame {
 		//-----------------------------------------------------------------------------------------------------------------
 		JPanel panel_Tabakwaren = new JPanel();
 		layeredPane.add(panel_Tabakwaren, "name_994428879585100");
-		panel_Tabakwaren.setLayout(null);
 		createColumn();
 		//-----------------------------------------------------------------------------------------------------------------
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak2 = new JButton("tabak2");
+		btnTabak2.setBounds(20, 275, 89, 23);
 		
 		btnTabak2.addActionListener(new ActionListener() {
 			
@@ -138,13 +145,14 @@ public class Kasse_Bildschirm extends JFrame {
 				
 				}
 		});
+		panel_Tabakwaren.setLayout(null);
 		btnTabak2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnTabak2.setBounds(182, 92, 89, 23);
 		panel_Tabakwaren.add(btnTabak2);
 
 
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak1 = new JButton("tabak1");
+		btnTabak1.setBounds(20, 309, 89, 23);
 		btnTabak1.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -156,10 +164,10 @@ public class Kasse_Bildschirm extends JFrame {
 				}
 		});
 		btnTabak1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnTabak1.setBounds(182, 126, 89, 23);
 		panel_Tabakwaren.add(btnTabak1);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak4 = new JButton("tabak4");
+		btnTabak4.setBounds(20, 194, 89, 23);
 		btnTabak4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -170,10 +178,10 @@ public class Kasse_Bildschirm extends JFrame {
 		});
 		
 		btnTabak4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnTabak4.setBounds(182, 11, 89, 23);
 		panel_Tabakwaren.add(btnTabak4);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabak3 = new JButton("tabak3");
+		btnTabak3.setBounds(20, 228, 89, 23);
 		btnTabak3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -185,10 +193,10 @@ public class Kasse_Bildschirm extends JFrame {
 		
 
 		btnTabak3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnTabak3.setBounds(182, 45, 89, 23);
 		panel_Tabakwaren.add(btnTabak3);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnBlaettchen = new JButton("Bl\u00E4ttchen");
+		btnBlaettchen.setBounds(10, 126, 136, 23);
 		btnBlaettchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -200,10 +208,10 @@ public class Kasse_Bildschirm extends JFrame {
 		
 
 		btnBlaettchen.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnBlaettchen.setBounds(10, 126, 136, 23);
 		panel_Tabakwaren.add(btnBlaettchen);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnFilter = new JButton("Filter");
+		btnFilter.setBounds(10, 92, 136, 23);
 		btnFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -215,10 +223,10 @@ public class Kasse_Bildschirm extends JFrame {
 		
 		
 		btnFilter.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnFilter.setBounds(10, 92, 136, 23);
 		panel_Tabakwaren.add(btnFilter);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnZigaretten1 = new JButton("Zigaretten1");
+		btnZigaretten1.setBounds(10, 11, 136, 23);
 		btnZigaretten1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -230,10 +238,10 @@ public class Kasse_Bildschirm extends JFrame {
 		
 		
 		btnZigaretten1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnZigaretten1.setBounds(10, 11, 136, 23);
 		panel_Tabakwaren.add(btnZigaretten1);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnZigaretten2 = new JButton("Zigaretten2");
+		btnZigaretten2.setBounds(10, 45, 136, 23);
 		btnZigaretten2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -245,10 +253,10 @@ public class Kasse_Bildschirm extends JFrame {
 		
 		
 		btnZigaretten2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnZigaretten2.setBounds(10, 45, 136, 23);
 		panel_Tabakwaren.add(btnZigaretten2);
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnFeuerzeug = new JButton("Feuerzeug");
+		btnFeuerzeug.setBounds(10, 160, 136, 23);
 		btnFeuerzeug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				///-----------------------------------------------------
@@ -260,7 +268,6 @@ public class Kasse_Bildschirm extends JFrame {
 		
 		
 		btnFeuerzeug.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnFeuerzeug.setBounds(10, 160, 136, 23);
 		panel_Tabakwaren.add(btnFeuerzeug);
 		//-----------------------------------------------------------------------------------------------------------------
 		//							Zeitung und Zeitschriften
@@ -1025,13 +1032,13 @@ public class Kasse_Bildschirm extends JFrame {
 			}
 		});
 		btnBezahlen.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnBezahlen.setBounds(461, 376, 112, 33);
+		btnBezahlen.setBounds(489, 434, 112, 33);
 		panel.add(btnBezahlen);
 		//-----------------------------------------------------------------------------------------------------------------
 		//						TabakWaren Button
 		//-----------------------------------------------------------------------------------------------------------------
 		JButton btnTabakwaren = new JButton("Tabakwaren");
-		btnTabakwaren.setBounds(10, 225, 139, 23);
+		btnTabakwaren.setBounds(154, 400, 139, 23);
 		panel.add(btnTabakwaren);
 		btnTabakwaren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1055,7 +1062,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnGetraenke.setBounds(10, 354, 111, 23);
+		btnGetraenke.setBounds(303, 400, 123, 23);
 		panel.add(btnGetraenke);
 		btnGetraenke.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1070,7 +1077,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnZeitung.setBounds(10, 252, 107, 23);
+		btnZeitung.setBounds(21, 366, 123, 23);
 		panel.add(btnZeitung);
 		btnZeitung.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1086,7 +1093,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnNahrung.setBounds(143, 252, 106, 23);
+		btnNahrung.setBounds(154, 366, 139, 23);
 		panel.add(btnNahrung);
 		btnNahrung.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1102,7 +1109,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnTreibstoff.setBounds(160, 320, 123, 23);
+		btnTreibstoff.setBounds(303, 366, 123, 23);
 		panel.add(btnTreibstoff);
 		btnTreibstoff.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1117,7 +1124,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnHandyGuthaben.setBounds(10, 286, 165, 23);
+		btnHandyGuthaben.setBounds(436, 400, 165, 23);
 		panel.add(btnHandyGuthaben);
 		btnHandyGuthaben.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1133,7 +1140,7 @@ public class Kasse_Bildschirm extends JFrame {
 				layeredPane.revalidate();
 			}
 		});
-		btnAnderes.setBounds(10, 320, 123, 23);
+		btnAnderes.setBounds(21, 400, 123, 23);
 		panel.add(btnAnderes);
 		btnAnderes.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		//-----------------------------------------------------------------------------------------------------------------
@@ -1142,22 +1149,27 @@ public class Kasse_Bildschirm extends JFrame {
 		
 		JLabel lblSumme = new JLabel("Summe :");
 		lblSumme.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblSumme.setBounds(247, 377, 71, 31);
+		lblSumme.setBounds(275, 435, 71, 31);
 		panel.add(lblSumme);
 		
 		textSumme = new JTextField();
 		textSumme.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textSumme.setBounds(328, 376, 123, 33);
+		textSumme.setBounds(356, 434, 123, 33);
 		panel.add(textSumme);
 		textSumme.setColumns(10);
 		
 		
 		//JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 268, 211);
+		scrollPane.setBounds(10, 95, 285, 260);
 		panel.add(scrollPane);
 		
 		
 		scrollPane.setViewportView(table);
+		
+		JButton btnNewButton = new JButton("Zapfs\u00E4ule1");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton.setBounds(10, 11, 134, 73);
+		panel.add(btnNewButton);
 		/*
 		String[] colomnName = {"Artikel", "Preis", "Menge", "Mwst"};
 		Object[][] data ={{"tabak1",4.5f,11,19}};
